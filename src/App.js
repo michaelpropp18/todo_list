@@ -43,6 +43,18 @@ class App extends React.Component{
       items: filteredItems
     })
   }
+  editItem = async (value, key) => {
+    const items = this.state.items;
+    items.map(item => {
+      if (item.key === key) {
+        item.text = value
+      }
+      return 0;
+    });
+    this.setState({
+      items: items
+    })
+  }
   render() {
     return (
       <div className='App'>
@@ -58,8 +70,8 @@ class App extends React.Component{
         </header>
         <ListItems
           items={this.state.items}
-          deleteItem={this.deleteItem}>
-        </ListItems>
+          deleteItem={this.deleteItem}
+          editItem={this.editItem}/>
       </div>
     );
   }
