@@ -11,14 +11,15 @@ class App extends React.Component{
     currentItem: {
       text: '',
       key: ''
-    }
+    },
+    currentKey: 0
   }
   handleInput = async (e) => {
     this.setState({
-      currentItem : {
+      currentItem: {
         text: e.target.value,
-        key: Date.now()
-      }
+        key: this.state.currentKey
+      }, 
     })
   }
   addItem = async (e) => {
@@ -26,14 +27,21 @@ class App extends React.Component{
     const newItem = this.state.currentItem;
     if (newItem.text !== '') {
       const newItems = [...this.state.items, newItem]
-      this.setState({
+      this.setState(state => ({
         items: newItems,
         currentItem: {
           text: '',
           key: ''
-        }
-      })
+        },
+        currentKey: state.currentKey + 1
+      }))
     }
+  }
+  deleteItem = async (key) => {
+    const filteredItems = this.state.items.filter(item => item.key !== key);
+    this.setState({
+      items: filteredItems
+    })
   }
   render() {
     return (
@@ -48,7 +56,10 @@ class App extends React.Component{
             <button type='submit'>Add</button>
           </form>
         </header>
-        <ListItems items={this.state.items}></ListItems>
+        <ListItems
+          items={this.state.items}
+          deleteItem={this.deleteItem}>
+        </ListItems>
       </div>
     );
   }
