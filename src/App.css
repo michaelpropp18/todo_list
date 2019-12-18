@@ -36,6 +36,6 @@ body {
   background-color: rgb(202, 156, 24);
   cursor: pointer;
   font-weight: bolder;
-  font-size: 18px;
+  font-size: 18px; 
   color: white
 }
